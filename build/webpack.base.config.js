@@ -4,10 +4,11 @@ const path = require('path');
 const webpack=require('webpack');
 
 const HtmlwebpackPlugin = require('html-webpack-plugin');
-
+const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
 module.exports = {
     entry: {
+        vendor:['vue'],
        index:[
            path.resolve(__dirname,'../src/main.js')
        ]
@@ -60,6 +61,10 @@ module.exports = {
             // minify: {//是否压缩
             //     removeAttributeQuotes: true // 移除属性的引号
             // }
+        }),
+        new CommonsChunkPlugin({//提取公共代码和重复引用代码
+            name:["common",'vendor'],
+            minChunks:2
         })
     ]
 
